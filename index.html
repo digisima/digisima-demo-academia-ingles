@@ -10,7 +10,8 @@
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #0D9488;
@@ -19,6 +20,7 @@
       --primary-bg: #F0FDFA;
       --accent: #F59E0B;
       --accent-dark: #D97706;
+      --accent-light: #FEF3C7;
       --text: #0F172A;
       --text-muted: #64748B;
       --border: #E5E7EB;
@@ -28,8 +30,11 @@
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
       --shadow: 0 4px 16px rgba(15,23,42,0.06);
       --shadow-lg: 0 20px 40px rgba(15,23,42,0.08);
+      --shadow-xl: 0 30px 60px rgba(15,23,42,0.12);
       --radius: 14px;
       --radius-lg: 24px;
+      --gradient-primary: linear-gradient(135deg, #0D9488 0%, #134E4A 100%);
+      --gradient-accent: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -39,6 +44,7 @@
       background: var(--bg);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     h1, h2, h3, h4 {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -50,6 +56,18 @@
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
     .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    /* Scroll progress */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--gradient-accent);
+      z-index: 200;
+      transition: width 0.05s linear;
+    }
+
     .eyebrow {
       display: inline-block;
       font-size: 13px;
@@ -70,18 +88,20 @@
       border-radius: 12px;
       font-weight: 700;
       font-size: 16px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
       cursor: pointer;
       border: none;
       font-family: inherit;
       white-space: nowrap;
+      position: relative;
+      overflow: hidden;
     }
     .btn-primary {
       background: var(--primary);
       color: white;
       box-shadow: 0 8px 20px rgba(13,148,136,0.25);
     }
-    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(13,148,136,0.4); }
     .btn-ghost {
       background: transparent;
       color: var(--text);
@@ -92,21 +112,22 @@
       background: var(--whatsapp);
       color: white;
     }
-    .btn-wa:hover { background: #1EBE5C; transform: translateY(-1px); }
+    .btn-wa:hover { background: #1EBE5C; transform: translateY(-2px); }
     .btn-accent {
       background: var(--accent);
       color: var(--text);
       box-shadow: 0 8px 20px rgba(245,158,11,0.25);
     }
-    .btn-accent:hover { background: var(--accent-dark); color: white; transform: translateY(-1px); }
+    .btn-accent:hover { background: var(--accent-dark); color: white; transform: translateY(-2px); }
 
     /* NAV */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
     .nav-inner {
@@ -127,16 +148,30 @@
       letter-spacing: -0.02em;
     }
     .logo-mark {
-      width: 36px; height: 36px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      border-radius: 10px;
+      width: 38px; height: 38px;
+      background: var(--gradient-primary);
+      border-radius: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       font-weight: 800;
       font-size: 18px;
-      box-shadow: 0 4px 12px rgba(13,148,136,0.3);
+      box-shadow: 0 6px 16px rgba(13,148,136,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-mark::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+      animation: shimmer 4s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+      50% { transform: translate(50%, 50%) rotate(180deg); }
     }
     .nav-links {
       display: flex;
@@ -146,7 +181,20 @@
       font-size: 15px;
       color: var(--text-muted);
     }
+    .nav-links a {
+      position: relative;
+      padding: 4px 0;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--primary);
+      transition: width 0.25s ease;
+    }
     .nav-links a:hover { color: var(--primary); }
+    .nav-links a:hover::after { width: 100%; }
     .nav-cta { display: flex; gap: 12px; align-items: center; }
     .nav-cta .btn { padding: 10px 18px; font-size: 14px; }
     @media (max-width: 860px) {
@@ -156,26 +204,59 @@
     /* HERO */
     .hero {
       position: relative;
-      padding: 80px 0 100px;
-      background:
-        radial-gradient(ellipse at 80% 20%, var(--primary-bg) 0%, transparent 60%),
-        radial-gradient(ellipse at 10% 80%, #FEF3C7 0%, transparent 60%),
-        white;
+      padding: 90px 0 110px;
+      background: white;
       overflow: hidden;
+    }
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.6;
+      animation: float 14s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero::before {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--primary-bg) 0%, transparent 70%);
+      top: -100px; right: -100px;
+    }
+    .hero::after {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+      bottom: -200px; left: -150px;
+      animation-delay: -7s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 30px) scale(0.95); }
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
+      grid-template-columns: 1.05fr 1fr;
       gap: 60px;
       align-items: center;
+      position: relative;
+      z-index: 2;
     }
     .hero h1 {
-      font-size: clamp(40px, 5.5vw, 64px);
-      margin: 20px 0 24px;
+      font-size: clamp(42px, 5.6vw, 68px);
+      margin: 22px 0 26px;
+      font-weight: 900;
     }
     .hero h1 .highlight {
-      background: linear-gradient(120deg, transparent 0%, transparent 50%, #FEF3C7 50%, #FEF3C7 100%);
-      padding: 0 6px;
+      background: linear-gradient(120deg, var(--accent) 0%, var(--accent-dark) 50%, var(--accent) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-shift 4s ease-in-out infinite;
+    }
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     .hero p.lead {
       font-size: 19px;
@@ -183,124 +264,183 @@
       max-width: 540px;
       margin-bottom: 32px;
     }
-    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 32px; }
     .trust-row {
       display: flex;
       align-items: center;
       gap: 16px;
       font-size: 14px;
       color: var(--text-muted);
+      flex-wrap: wrap;
     }
+    .trust-avatars {
+      display: flex;
+    }
+    .trust-avatars img {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid white;
+      margin-left: -10px;
+      object-fit: cover;
+    }
+    .trust-avatars img:first-child { margin-left: 0; }
     .stars { color: var(--accent); font-size: 16px; letter-spacing: 2px; }
-    .hero-card {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      box-shadow: var(--shadow-lg);
+
+    .hero-visual {
       position: relative;
-      transform: rotate(-1.5deg);
+      aspect-ratio: 4/5;
+      max-width: 480px;
+      justify-self: center;
     }
-    .hero-card::before {
+    .hero-img-wrap {
+      position: absolute;
+      inset: 0;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      transform: rotate(-2deg);
+      transition: transform 0.4s ease;
+    }
+    .hero-img-wrap:hover { transform: rotate(0deg); }
+    .hero-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-img-wrap::after {
       content: '';
       position: absolute;
-      inset: -1px;
-      border-radius: var(--radius-lg);
-      padding: 1px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      opacity: 0.5;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(13,78,74,0.6) 100%);
     }
-    .student-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--bg-soft);
-    }
-    .student-row:last-child { border-bottom: none; }
-    .avatar {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .student-info { flex: 1; }
-    .student-name { font-weight: 700; font-size: 15px; }
-    .student-detail { font-size: 13px; color: var(--text-muted); }
-    .progress-pill {
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--primary-light);
-      color: var(--primary-dark);
-    }
-    .floating-badge {
+    .floating-card {
       position: absolute;
-      top: -20px; right: -20px;
-      background: var(--accent);
-      color: var(--text);
-      padding: 12px 18px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
       border-radius: 16px;
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: var(--shadow);
-      transform: rotate(8deg);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: float-card 5s ease-in-out infinite;
+      z-index: 3;
     }
+    .floating-card.fc-1 {
+      top: 30px; left: -40px;
+    }
+    .floating-card.fc-2 {
+      bottom: 60px; right: -30px;
+      animation-delay: -2.5s;
+    }
+    @keyframes float-card {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .fc-emoji { font-size: 24px; }
+    .fc-text { font-size: 13px; font-weight: 600; line-height: 1.3; }
+    .fc-sub { font-size: 11px; color: var(--text-muted); font-weight: 500; }
     @media (max-width: 860px) {
-      .hero { padding: 60px 0 70px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero-card { transform: none; }
+      .hero { padding: 60px 0 80px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 50px; }
+      .hero-visual { max-width: 360px; }
     }
+
+    /* MARQUEE */
+    .marquee-section {
+      padding: 30px 0;
+      background: var(--bg-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .marquee-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .marquee {
+      display: flex;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 80px;
+      animation: marquee 30s linear infinite;
+      flex-shrink: 0;
+      padding-right: 80px;
+    }
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      font-family: 'Plus Jakarta Sans';
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .marquee-item:hover { opacity: 1; color: var(--primary); }
 
     /* STATS */
     .stats {
       background: var(--primary-dark);
-      padding: 50px 0;
+      padding: 70px 0;
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .stats::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(245,158,11,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(13,148,136,0.3) 0%, transparent 50%);
     }
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 32px;
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
     .stat-num {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 44px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
       color: var(--accent);
       line-height: 1;
     }
     .stat-label {
       font-size: 14px;
       color: rgba(255,255,255,0.8);
-      margin-top: 8px;
+      margin-top: 10px;
       font-weight: 500;
     }
     @media (max-width: 700px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-      .stat-num { font-size: 36px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+      .stat-num { font-size: 42px; }
     }
 
     /* SECTION shared */
-    section.padded { padding: 100px 0; }
+    section.padded { padding: 110px 0; }
     .section-head {
       text-align: center;
-      max-width: 700px;
-      margin: 0 auto 60px;
+      max-width: 720px;
+      margin: 0 auto 70px;
     }
     .section-head h2 {
-      font-size: clamp(32px, 4vw, 44px);
+      font-size: clamp(32px, 4.2vw, 46px);
       margin: 16px 0 14px;
     }
     .section-head p {
@@ -308,24 +448,37 @@
       color: var(--text-muted);
     }
 
-    /* WHY */
+    /* WHY (bento) */
     .why-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
+      gap: 20px;
     }
     .why-card {
       background: white;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 32px 28px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .why-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
     }
     .why-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
       border-color: var(--primary-light);
     }
+    .why-card:hover::before { transform: scaleX(1); }
     .why-icon {
       width: 56px; height: 56px;
       background: var(--primary-light);
@@ -335,6 +488,12 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .why-card:hover .why-icon {
+      transform: rotate(-8deg) scale(1.05);
+      background: var(--primary);
+      color: white;
     }
     .why-icon svg { width: 28px; height: 28px; }
     .why-card h3 { font-size: 19px; margin-bottom: 10px; }
@@ -346,8 +505,57 @@
       .why-grid { grid-template-columns: 1fr; }
     }
 
+    /* GALLERY (bento) */
+    .gallery {
+      background: var(--bg-soft);
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 180px;
+      gap: 16px;
+    }
+    .bento-item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .bento-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+    .bento-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .bento-item:hover img { transform: scale(1.08); }
+    .bento-item.b-1 { grid-column: span 2; grid-row: span 2; }
+    .bento-item.b-2 { grid-column: span 2; }
+    .bento-item.b-3 { grid-column: span 1; }
+    .bento-item.b-4 { grid-column: span 1; }
+    .bento-item.b-5 { grid-column: span 2; }
+    .bento-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 16px 20px;
+      background: linear-gradient(0deg, rgba(15,23,42,0.85) 0%, transparent 100%);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    @media (max-width: 860px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+      .bento-item.b-1 { grid-column: span 2; grid-row: span 2; }
+      .bento-item.b-2 { grid-column: span 2; }
+    }
+
     /* NIVELES */
-    .niveles { background: var(--bg-soft); }
+    .niveles { background: white; }
     .niveles-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -356,11 +564,17 @@
     .nivel-card {
       background: white;
       border-radius: var(--radius);
-      padding: 24px 20px;
+      padding: 26px 22px;
       border: 1px solid var(--border);
-      transition: transform 0.15s ease, border-color 0.15s ease;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .nivel-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+    .nivel-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+    }
     .nivel-tag {
       display: inline-block;
       background: var(--primary);
@@ -374,29 +588,44 @@
     }
     .nivel-card h3 { font-size: 17px; margin-bottom: 6px; }
     .nivel-card p { font-size: 14px; color: var(--text-muted); }
-    .nivel-card.specialty { background: var(--primary-dark); color: white; border: none; }
+    .nivel-card.specialty {
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+    }
     .nivel-card.specialty h3 { color: white; }
-    .nivel-card.specialty p { color: rgba(255,255,255,0.75); }
+    .nivel-card.specialty p { color: rgba(255,255,255,0.8); }
     .nivel-card.specialty .nivel-tag { background: var(--accent); color: var(--text); }
     @media (max-width: 860px) {
       .niveles-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* METODOLOGIA */
+    .metodo { background: var(--bg-soft); }
     .metodo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 32px;
       position: relative;
     }
+    .metodo-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px; left: 16%; right: 16%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-light), var(--accent-light), var(--primary-light));
+      z-index: 0;
+    }
     .metodo-step {
       text-align: center;
       padding: 0 12px;
+      position: relative;
+      z-index: 1;
     }
     .metodo-num {
       width: 64px; height: 64px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      background: var(--gradient-primary);
       color: white;
       font-family: 'Plus Jakarta Sans';
       font-weight: 800;
@@ -404,17 +633,32 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
-      box-shadow: 0 12px 28px rgba(13,148,136,0.3);
+      margin: 0 auto 22px;
+      box-shadow: 0 12px 28px rgba(13,148,136,0.35);
+      position: relative;
+    }
+    .metodo-num::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      opacity: 0.3;
+      animation: pulse-ring 3s ease-out infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.4); opacity: 0; }
     }
     .metodo-step h3 { font-size: 22px; margin-bottom: 12px; }
     .metodo-step p { color: var(--text-muted); font-size: 16px; }
     @media (max-width: 860px) {
       .metodo-grid { grid-template-columns: 1fr; gap: 40px; }
+      .metodo-grid::before { display: none; }
     }
 
     /* MODALIDADES */
-    .modalidades { background: var(--bg-soft); }
+    .modalidades { background: white; }
     .modal-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -425,6 +669,11 @@
       border-radius: var(--radius-lg);
       padding: 36px 30px;
       border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .modal-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
     }
     .modal-icon {
       font-size: 36px;
@@ -452,6 +701,7 @@
     @media (max-width: 860px) { .modal-grid { grid-template-columns: 1fr; } }
 
     /* PROFESORES */
+    .profesores { background: var(--bg-soft); }
     .prof-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -462,26 +712,32 @@
       border-radius: var(--radius-lg);
       overflow: hidden;
       border: 1px solid var(--border);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .prof-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
     }
     .prof-photo {
       width: 100%;
-      height: 240px;
-      background: linear-gradient(135deg, var(--primary-light) 0%, #FEF3C7 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 80px;
-      font-weight: 800;
-      color: var(--primary-dark);
-      font-family: 'Plus Jakarta Sans';
+      height: 280px;
+      overflow: hidden;
+      position: relative;
+    }
+    .prof-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .prof-card:hover .prof-photo img { transform: scale(1.06); }
+    .prof-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(13,78,74,0.4) 100%);
     }
     .prof-info { padding: 24px; }
-    .prof-name { font-size: 19px; font-weight: 800; font-family: 'Plus Jakarta Sans'; }
+    .prof-name { font-size: 20px; font-weight: 800; font-family: 'Plus Jakarta Sans'; }
     .prof-role { font-size: 14px; color: var(--primary); font-weight: 600; margin-top: 4px; }
     .prof-bio { font-size: 14px; color: var(--text-muted); margin-top: 12px; line-height: 1.55; }
     .prof-tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
@@ -496,7 +752,30 @@
     @media (max-width: 860px) { .prof-grid { grid-template-columns: 1fr; } }
 
     /* PLANES */
-    .planes { background: var(--primary-dark); color: white; }
+    .planes {
+      background: var(--primary-dark);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .planes::before, .planes::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      opacity: 0.4;
+    }
+    .planes::before {
+      background: var(--accent);
+      top: -200px; right: -100px;
+    }
+    .planes::after {
+      background: var(--primary);
+      bottom: -200px; left: -100px;
+    }
+    .planes .container { position: relative; z-index: 2; }
     .planes .section-head h2, .planes .section-head p { color: white; }
     .planes .section-head p { color: rgba(255,255,255,0.8); }
     .planes .eyebrow { background: rgba(245,158,11,0.2); color: var(--accent); }
@@ -511,17 +790,26 @@
       border-radius: var(--radius-lg);
       padding: 36px 32px;
       position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .plan-card:hover {
+      transform: translateY(-6px);
     }
     .plan-card.featured {
       background: linear-gradient(180deg, white 0%, var(--primary-bg) 100%);
       transform: scale(1.04);
       box-shadow: 0 30px 60px rgba(0,0,0,0.25);
     }
+    .plan-card.featured:hover {
+      transform: scale(1.04) translateY(-6px);
+    }
     .plan-badge {
       position: absolute;
       top: -14px; left: 50%;
       transform: translateX(-50%);
-      background: var(--accent);
+      background: var(--gradient-accent);
+      background-size: 200% auto;
+      animation: gradient-shift 3s linear infinite;
       color: var(--text);
       padding: 6px 16px;
       border-radius: 999px;
@@ -537,7 +825,7 @@
       margin: 14px 0 8px;
     }
     .plan-price .currency { font-size: 18px; font-weight: 700; color: var(--text-muted); }
-    .plan-price .amount { font-family: 'Plus Jakarta Sans'; font-size: 56px; font-weight: 800; letter-spacing: -0.04em; }
+    .plan-price .amount { font-family: 'Plus Jakarta Sans'; font-size: 56px; font-weight: 900; letter-spacing: -0.04em; }
     .plan-price .period { font-size: 16px; color: var(--text-muted); }
     .plan-desc { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
     .plan-features {
@@ -567,9 +855,9 @@
       font-weight: 700;
       background: var(--bg-soft);
       color: var(--text);
-      transition: background 0.15s;
+      transition: background 0.18s, transform 0.18s;
     }
-    .plan-cta:hover { background: var(--border); }
+    .plan-cta:hover { background: var(--border); transform: translateY(-2px); }
     .plan-card.featured .plan-cta {
       background: var(--primary);
       color: white;
@@ -578,6 +866,7 @@
     @media (max-width: 860px) {
       .planes-grid { grid-template-columns: 1fr; }
       .plan-card.featured { transform: none; }
+      .plan-card.featured:hover { transform: translateY(-6px); }
     }
 
     /* TESTIMONIOS */
@@ -592,6 +881,12 @@
       border-radius: var(--radius-lg);
       padding: 32px 28px;
       position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .test-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary-light);
     }
     .test-card .stars { font-size: 18px; margin-bottom: 14px; display: block; }
     .test-card blockquote {
@@ -602,7 +897,12 @@
       font-style: italic;
     }
     .test-author { display: flex; align-items: center; gap: 12px; }
-    .test-author .avatar { width: 40px; height: 40px; font-size: 14px; }
+    .test-author img {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
     .test-author-info .test-name { font-weight: 700; font-size: 15px; }
     .test-author-info .test-role { font-size: 13px; color: var(--text-muted); }
     @media (max-width: 860px) { .test-grid { grid-template-columns: 1fr; } }
@@ -616,7 +916,10 @@
       border-radius: var(--radius);
       margin-bottom: 12px;
       overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
+    .faq-item:hover { border-color: var(--primary-light); }
+    .faq-item.open { border-color: var(--primary); box-shadow: var(--shadow); }
     .faq-q {
       width: 100%;
       text-align: left;
@@ -635,34 +938,37 @@
     }
     .faq-q::after {
       content: '+';
-      font-size: 24px;
+      font-size: 26px;
       color: var(--primary);
-      transition: transform 0.2s;
+      transition: transform 0.25s;
       flex-shrink: 0;
+      font-weight: 300;
     }
     .faq-item.open .faq-q::after { transform: rotate(45deg); }
     .faq-a {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
+      transition: max-height 0.35s ease, padding 0.35s ease;
       padding: 0 26px;
       color: var(--text-muted);
       font-size: 15px;
       line-height: 1.6;
     }
     .faq-item.open .faq-a {
-      max-height: 200px;
+      max-height: 220px;
       padding: 0 26px 22px;
     }
 
     /* CTA FINAL */
     .cta-final {
       background:
-        radial-gradient(ellipse at 80% 0%, rgba(245,158,11,0.2) 0%, transparent 60%),
-        radial-gradient(ellipse at 0% 100%, rgba(13,148,136,0.3) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 0%, rgba(245,158,11,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 0% 100%, rgba(13,148,136,0.4) 0%, transparent 60%),
         var(--primary-dark);
       color: white;
-      padding: 100px 0;
+      padding: 110px 0;
+      position: relative;
+      overflow: hidden;
     }
     .cta-grid {
       display: grid;
@@ -699,7 +1005,7 @@
       color: var(--text);
       padding: 36px;
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-xl);
     }
     .cta-form h3 { font-size: 22px; margin-bottom: 6px; }
     .cta-form .form-sub { color: var(--text-muted); font-size: 14px; margin-bottom: 22px; }
@@ -719,12 +1025,13 @@
       font-size: 15px;
       font-family: inherit;
       background: var(--bg-soft);
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
     }
     .form-group input:focus, .form-group select:focus {
       outline: none;
       border-color: var(--primary);
       background: white;
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.15);
     }
     .form-submit {
       width: 100%;
@@ -745,7 +1052,7 @@
     footer {
       background: #0F172A;
       color: rgba(255,255,255,0.7);
-      padding: 60px 0 30px;
+      padding: 70px 0 30px;
     }
     .foot-grid {
       display: grid;
@@ -765,6 +1072,7 @@
     }
     .foot-col ul { list-style: none; }
     .foot-col li { padding: 6px 0; font-size: 14px; }
+    .foot-col a { transition: color 0.2s; }
     .foot-col a:hover { color: var(--accent); }
     .foot-bottom {
       border-top: 1px solid rgba(255,255,255,0.1);
@@ -799,22 +1107,50 @@
       z-index: 99;
       transition: transform 0.2s;
     }
+    .wa-float::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--whatsapp);
+      animation: pulse-wa 2s ease-out infinite;
+      z-index: -1;
+    }
+    @keyframes pulse-wa {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
     .wa-float:hover { transform: scale(1.1); }
     .wa-float svg { width: 32px; height: 32px; fill: white; }
 
-    /* FADE IN */
+    /* REVEAL */
     .reveal {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
     .reveal.in-view {
       opacity: 1;
       transform: translateY(0);
     }
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 0.25s; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 0.35s; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(5) { transition-delay: 0.45s; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(6) { transition-delay: 0.55s; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(7) { transition-delay: 0.65s; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(8) { transition-delay: 0.75s; opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- NAV -->
   <nav>
@@ -848,36 +1184,69 @@
           <a href="#planes" class="btn btn-ghost">Ver planes</a>
         </div>
         <div class="trust-row">
+          <div class="trust-avatars">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=faces&q=80" alt="Estudiante 1">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=faces&q=80" alt="Estudiante 2">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=faces&q=80" alt="Estudiante 3">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=faces&q=80" alt="Estudiante 4">
+          </div>
           <span class="stars">★★★★★</span>
-          <span><strong style="color:var(--text)">4.9 de 5</strong> · más de 800 estudiantes graduados</span>
+          <span><strong style="color:var(--text)">4.9 de 5</strong> · 800+ estudiantes graduados</span>
         </div>
       </div>
-      <div class="hero-card">
-        <div class="floating-badge">Cupos abiertos</div>
-        <div class="student-row">
-          <div class="avatar">MG</div>
-          <div class="student-info">
-            <div class="student-name">María G.</div>
-            <div class="student-detail">Nivel B2 · Conversación</div>
-          </div>
-          <span class="progress-pill">+85%</span>
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=900&h=1100&fit=crop&q=80" alt="Estudiantes aprendiendo inglés">
         </div>
-        <div class="student-row">
-          <div class="avatar">JC</div>
-          <div class="student-info">
-            <div class="student-name">Juan C.</div>
-            <div class="student-detail">Business English · 4 meses</div>
+        <div class="floating-card fc-1">
+          <div class="fc-emoji">🎓</div>
+          <div>
+            <div class="fc-text">Sarah completó B2</div>
+            <div class="fc-sub">hace 2 horas</div>
           </div>
-          <span class="progress-pill">+72%</span>
         </div>
-        <div class="student-row">
-          <div class="avatar">SP</div>
-          <div class="student-info">
-            <div class="student-name">Sofía P.</div>
-            <div class="student-detail">A2 · Inicial</div>
+        <div class="floating-card fc-2">
+          <div class="fc-emoji">💬</div>
+          <div>
+            <div class="fc-text">+12 conversation clubs</div>
+            <div class="fc-sub">esta semana</div>
           </div>
-          <span class="progress-pill">+38%</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="marquee-section">
+    <div class="container">
+      <div class="marquee-label">Preparamos para los exámenes internacionales más reconocidos</div>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        <span class="marquee-item">TOEFL</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">IELTS</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Cambridge</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">TOEIC</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Duolingo English Test</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">PTE Academic</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">TOEFL</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">IELTS</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Cambridge</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">TOEIC</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Duolingo English Test</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">PTE Academic</span>
+        <span class="marquee-item">·</span>
       </div>
     </div>
   </section>
@@ -885,21 +1254,21 @@
   <!-- STATS -->
   <section class="stats">
     <div class="container">
-      <div class="stats-grid">
+      <div class="stats-grid reveal-stagger">
         <div>
-          <div class="stat-num">800+</div>
+          <div class="stat-num" data-count="800" data-suffix="+">0</div>
           <div class="stat-label">Estudiantes graduados</div>
         </div>
         <div>
-          <div class="stat-num">12</div>
+          <div class="stat-num" data-count="12" data-suffix="">0</div>
           <div class="stat-label">Profesores certificados</div>
         </div>
         <div>
-          <div class="stat-num">6</div>
+          <div class="stat-num" data-count="6" data-suffix="">0</div>
           <div class="stat-label">Niveles (A1 a C2)</div>
         </div>
         <div>
-          <div class="stat-num">4.9★</div>
+          <div class="stat-num" data-count="4.9" data-suffix="★" data-decimals="1">0</div>
           <div class="stat-label">Satisfacción promedio</div>
         </div>
       </div>
@@ -914,34 +1283,67 @@
         <h2>Aprendé inglés como debería enseñarse.</h2>
         <p>Pequeños grupos, profesores que te conocen por tu nombre y un plan de estudio que se adapta a tu objetivo — no al revés.</p>
       </div>
-      <div class="why-grid">
-        <div class="why-card reveal">
+      <div class="why-grid reveal-stagger">
+        <div class="why-card">
           <div class="why-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           </div>
           <h3>Grupos pequeños</h3>
           <p>Máximo 6 estudiantes por clase. Cada uno habla, cada uno avanza, nadie se esconde al fondo.</p>
         </div>
-        <div class="why-card reveal">
+        <div class="why-card">
           <div class="why-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           </div>
           <h3>Profesores certificados</h3>
           <p>Todos con TEFL, TESOL o equivalente. Hablantes nativos y bilingües con experiencia real enseñando.</p>
         </div>
-        <div class="why-card reveal">
+        <div class="why-card">
           <div class="why-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
           </div>
           <h3>Plan personalizado</h3>
           <p>Diagnóstico inicial gratis. A partir de ahí construimos tu ruta — viaje, trabajo, examen o conversación.</p>
         </div>
-        <div class="why-card reveal">
+        <div class="why-card">
           <div class="why-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
           </div>
           <h3>Conversación desde día 1</h3>
           <p>Olvidate de aprender gramática 6 meses antes de hablar. Acá practicás conversación desde la primera clase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="padded gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Vida en Lingua</span>
+        <h2>Así se ve aprender con nosotros.</h2>
+        <p>Aulas pensadas para conversar, conversation clubs los viernes, eventos culturales y una comunidad que te acompaña.</p>
+      </div>
+      <div class="bento-grid reveal-stagger">
+        <div class="bento-item b-1">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&h=900&fit=crop&q=80" alt="Clase grupal">
+          <div class="bento-caption">Conversation club · viernes 6pm</div>
+        </div>
+        <div class="bento-item b-2">
+          <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=900&h=400&fit=crop&q=80" alt="Estudio en grupo">
+          <div class="bento-caption">Práctica en pares</div>
+        </div>
+        <div class="bento-item b-3">
+          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=400&fit=crop&q=80" alt="Sesión one-on-one">
+          <div class="bento-caption">1-a-1 con profesor</div>
+        </div>
+        <div class="bento-item b-4">
+          <img src="https://images.unsplash.com/photo-1488751045188-3c55bbf9a3fa?w=400&h=400&fit=crop&q=80" alt="Materiales">
+          <div class="bento-caption">Material propio</div>
+        </div>
+        <div class="bento-item b-5">
+          <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=900&h=400&fit=crop&q=80" alt="Comunidad">
+          <div class="bento-caption">Eventos culturales mensuales</div>
         </div>
       </div>
     </div>
@@ -955,43 +1357,43 @@
         <h2>Empezá donde estés. Llegá adonde quieras.</h2>
         <p>Cubrimos todo el marco MCER — desde principiante absoluto hasta nivel avanzado, con tracks específicos para conversación y negocios.</p>
       </div>
-      <div class="niveles-grid">
-        <div class="nivel-card reveal">
+      <div class="niveles-grid reveal-stagger">
+        <div class="nivel-card">
           <span class="nivel-tag">A1</span>
           <h3>Principiante</h3>
           <p>Vocabulario básico, frases simples, presentarte y entender lo esencial.</p>
         </div>
-        <div class="nivel-card reveal">
+        <div class="nivel-card">
           <span class="nivel-tag">A2</span>
           <h3>Elemental</h3>
           <p>Conversaciones cotidianas, hablar de tu rutina, viajar sin frustración.</p>
         </div>
-        <div class="nivel-card reveal">
+        <div class="nivel-card">
           <span class="nivel-tag">B1</span>
           <h3>Intermedio</h3>
           <p>Manejarte en situaciones laborales, ver series sin subtítulos.</p>
         </div>
-        <div class="nivel-card reveal">
+        <div class="nivel-card">
           <span class="nivel-tag">B2</span>
           <h3>Intermedio Alto</h3>
           <p>Conversar con fluidez, opinar sobre temas complejos, leer artículos.</p>
         </div>
-        <div class="nivel-card reveal">
+        <div class="nivel-card">
           <span class="nivel-tag">C1</span>
           <h3>Avanzado</h3>
           <p>Comunicación profesional sin esfuerzo, presentaciones, negociación.</p>
         </div>
-        <div class="nivel-card reveal">
+        <div class="nivel-card">
           <span class="nivel-tag">C2</span>
           <h3>Maestría</h3>
           <p>Dominio cercano al nativo. Matices culturales, humor, debate.</p>
         </div>
-        <div class="nivel-card specialty reveal">
+        <div class="nivel-card specialty">
           <span class="nivel-tag">Specialty</span>
           <h3>Conversational</h3>
           <p>Fluidez práctica para socializar, viajar, trabajar — sin aburrirte con gramática.</p>
         </div>
-        <div class="nivel-card specialty reveal">
+        <div class="nivel-card specialty">
           <span class="nivel-tag">Specialty</span>
           <h3>Business English</h3>
           <p>Reuniones, emails, presentaciones, negociación. Para profesionales.</p>
@@ -1001,25 +1403,25 @@
   </section>
 
   <!-- METODOLOGIA -->
-  <section class="padded" id="metodologia">
+  <section class="padded metodo" id="metodologia">
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Metodología</span>
         <h2>Tres pasos para empezar a hablar.</h2>
         <p>Sin sorpresas. Sabés exactamente qué esperar desde la primera llamada.</p>
       </div>
-      <div class="metodo-grid">
-        <div class="metodo-step reveal">
+      <div class="metodo-grid reveal-stagger">
+        <div class="metodo-step">
           <div class="metodo-num">1</div>
           <h3>Diagnóstico inicial</h3>
           <p>Conversamos 20 minutos sin compromiso. Identificamos tu nivel real y tu objetivo concreto.</p>
         </div>
-        <div class="metodo-step reveal">
+        <div class="metodo-step">
           <div class="metodo-num">2</div>
           <h3>Plan a tu medida</h3>
           <p>Diseñamos tu ruta de estudio: cuántas clases por semana, qué nivel, qué materiales y cuánto te va a tomar.</p>
         </div>
-        <div class="metodo-step reveal">
+        <div class="metodo-step">
           <div class="metodo-num">3</div>
           <h3>Práctica real</h3>
           <p>Empezás clases con tu profesor asignado. Cada mes evaluamos avance y ajustamos el plan si hace falta.</p>
@@ -1036,8 +1438,8 @@
         <h2>Como mejor te funcione.</h2>
         <p>Elegí cómo querés aprender. Podés cambiar de modalidad en cualquier momento.</p>
       </div>
-      <div class="modal-grid">
-        <div class="modal-card reveal">
+      <div class="modal-grid reveal-stagger">
+        <div class="modal-card">
           <div class="modal-icon">🏫</div>
           <h3>Presencial</h3>
           <p>En nuestro campus en zona 10, Guatemala. Aulas pensadas para conversación, no para tomar apuntes.</p>
@@ -1047,7 +1449,7 @@
             <li>Eventos y conversation clubs</li>
           </ul>
         </div>
-        <div class="modal-card reveal">
+        <div class="modal-card">
           <div class="modal-icon">💻</div>
           <h3>Online</h3>
           <p>Clases en vivo por videollamada. Misma metodología, mismos profesores, desde cualquier parte.</p>
@@ -1057,7 +1459,7 @@
             <li>Material digital incluido</li>
           </ul>
         </div>
-        <div class="modal-card reveal">
+        <div class="modal-card">
           <div class="modal-icon">🏢</div>
           <h3>Empresarial</h3>
           <p>Programas para equipos. Llevamos las clases a tu oficina o las hacemos online — vos decidís.</p>
@@ -1072,16 +1474,18 @@
   </section>
 
   <!-- PROFESORES -->
-  <section class="padded" id="profesores">
+  <section class="padded profesores" id="profesores">
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Equipo</span>
         <h2>Profesores que se preocupan.</h2>
         <p>Conocé al equipo que te va a acompañar — todos certificados, todos con experiencia real enseñando a estudiantes como vos.</p>
       </div>
-      <div class="prof-grid">
-        <div class="prof-card reveal">
-          <div class="prof-photo">SR</div>
+      <div class="prof-grid reveal-stagger">
+        <div class="prof-card">
+          <div class="prof-photo">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=700&fit=crop&q=80" alt="Sarah Robinson">
+          </div>
           <div class="prof-info">
             <div class="prof-name">Sarah Robinson</div>
             <div class="prof-role">Lead Teacher · Native</div>
@@ -1093,8 +1497,10 @@
             </div>
           </div>
         </div>
-        <div class="prof-card reveal">
-          <div class="prof-photo">DM</div>
+        <div class="prof-card">
+          <div class="prof-photo">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=700&fit=crop&q=80" alt="David Morales">
+          </div>
           <div class="prof-info">
             <div class="prof-name">David Morales</div>
             <div class="prof-role">Senior Teacher · Bilingual</div>
@@ -1106,8 +1512,10 @@
             </div>
           </div>
         </div>
-        <div class="prof-card reveal">
-          <div class="prof-photo">EJ</div>
+        <div class="prof-card">
+          <div class="prof-photo">
+            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&h=700&fit=crop&q=80" alt="Emma Johnson">
+          </div>
           <div class="prof-info">
             <div class="prof-name">Emma Johnson</div>
             <div class="prof-role">Teacher · Native</div>
@@ -1131,8 +1539,8 @@
         <h2>Inversión clara. Sin letra chica.</h2>
         <p>Pagás mes a mes. Sin contratos largos. Si no te funciona, cancelás.</p>
       </div>
-      <div class="planes-grid">
-        <div class="plan-card reveal">
+      <div class="planes-grid reveal-stagger">
+        <div class="plan-card">
           <div class="plan-name">Trial</div>
           <div class="plan-price">
             <span class="amount">Gratis</span>
@@ -1146,7 +1554,7 @@
           </ul>
           <a href="#contacto" class="plan-cta">Reservar prueba</a>
         </div>
-        <div class="plan-card featured reveal">
+        <div class="plan-card featured">
           <span class="plan-badge">Más elegido</span>
           <div class="plan-name">Estándar</div>
           <div class="plan-price">
@@ -1164,7 +1572,7 @@
           </ul>
           <a href="#contacto" class="plan-cta">Empezar plan Estándar</a>
         </div>
-        <div class="plan-card reveal">
+        <div class="plan-card">
           <div class="plan-name">Intensivo</div>
           <div class="plan-price">
             <span class="currency">Q</span>
@@ -1192,34 +1600,34 @@
         <span class="eyebrow">Lo que dicen</span>
         <h2>Estudiantes reales. Resultados reales.</h2>
       </div>
-      <div class="test-grid">
-        <div class="test-card reveal">
+      <div class="test-grid reveal-stagger">
+        <div class="test-card">
           <span class="stars">★★★★★</span>
           <blockquote>"Llevaba años intentando aprender inglés solo. En Lingua avancé más en 4 meses que en 4 años. Lo que cambia todo es que te hacen hablar desde la primera clase."</blockquote>
           <div class="test-author">
-            <div class="avatar">CR</div>
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&h=120&fit=crop&crop=faces&q=80" alt="Carlos">
             <div class="test-author-info">
               <div class="test-name">Carlos R.</div>
               <div class="test-role">Ingeniero · Plan Intensivo</div>
             </div>
           </div>
         </div>
-        <div class="test-card reveal">
+        <div class="test-card">
           <span class="stars">★★★★★</span>
           <blockquote>"Necesitaba inglés para una entrevista de trabajo en EE.UU. en 3 meses. Sarah me preparó específicamente para eso. Pasé la entrevista y ya estoy trabajando."</blockquote>
           <div class="test-author">
-            <div class="avatar">AM</div>
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop&crop=faces&q=80" alt="Ana">
             <div class="test-author-info">
               <div class="test-name">Ana M.</div>
               <div class="test-role">Diseñadora · Business English</div>
             </div>
           </div>
         </div>
-        <div class="test-card reveal">
+        <div class="test-card">
           <span class="stars">★★★★★</span>
           <blockquote>"Empecé desde cero a los 45 años pensando que era tarde. Acá nadie te juzga, los grupos son chicos y avanzás a tu ritmo. Ya entiendo películas sin subtítulos."</blockquote>
           <div class="test-author">
-            <div class="avatar">RP</div>
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop&crop=faces&q=80" alt="Rosa">
             <div class="test-author-info">
               <div class="test-name">Rosa P.</div>
               <div class="test-role">Contadora · Plan Estándar</div>
@@ -1369,6 +1777,14 @@
   </a>
 
   <script>
+    // Scroll progress bar
+    const progressBar = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / total) * 100;
+      progressBar.style.width = scrolled + '%';
+    });
+
     // FAQ accordion
     document.querySelectorAll('.faq-q').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1384,11 +1800,48 @@
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('in-view');
+          // Trigger counter animation if applicable
+          if (e.target.querySelector('[data-count]')) {
+            e.target.querySelectorAll('[data-count]').forEach(animateCount);
+          }
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+    // Animated counter
+    function animateCount(el) {
+      const target = parseFloat(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const duration = 1800;
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const current = target * eased;
+        el.textContent = current.toFixed(decimals) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toFixed(decimals) + suffix;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Subtle hero parallax with mouse
+    const heroVisual = document.querySelector('.hero-visual');
+    if (heroVisual && window.matchMedia('(min-width: 860px)').matches) {
+      document.querySelector('.hero').addEventListener('mousemove', (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        heroVisual.style.transform = `translate(${x * 12}px, ${y * 12}px)`;
+      });
+      document.querySelector('.hero').addEventListener('mouseleave', () => {
+        heroVisual.style.transform = 'translate(0, 0)';
+      });
+    }
   </script>
 </body>
 </html>
