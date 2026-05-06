@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lingua Academy — Hablá inglés con confianza</title>
+  <meta name="description" content="Academia de inglés en Guatemala. Clases personalizadas, profesores certificados, conversación desde el día uno. Online y presencial.">
+  <meta property="og:title" content="Lingua Academy — Hablá inglés con confianza">
+  <meta property="og:description" content="Clases personalizadas, profesores certificados, conversación desde el día uno.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0D9488;
+      --primary-dark: #134E4A;
+      --primary-light: #CCFBF1;
+      --primary-bg: #F0FDFA;
+      --accent: #F59E0B;
+      --accent-dark: #D97706;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E5E7EB;
+      --bg: #FFFFFF;
+      --bg-soft: #F8FAFC;
+      --whatsapp: #25D366;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow: 0 4px 16px rgba(15,23,42,0.06);
+      --shadow-lg: 0 20px 40px rgba(15,23,42,0.08);
+      --radius: 14px;
+      --radius-lg: 24px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 26px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 8px 20px rgba(13,148,136,0.25);
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-wa {
+      background: var(--whatsapp);
+      color: white;
+    }
+    .btn-wa:hover { background: #1EBE5C; transform: translateY(-1px); }
+    .btn-accent {
+      background: var(--accent);
+      color: var(--text);
+      box-shadow: 0 8px 20px rgba(245,158,11,0.25);
+    }
+    .btn-accent:hover { background: var(--accent-dark); color: white; transform: translateY(-1px); }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(13,148,136,0.3);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta { display: flex; gap: 12px; align-items: center; }
+    .nav-cta .btn { padding: 10px 18px; font-size: 14px; }
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 80px 0 100px;
+      background:
+        radial-gradient(ellipse at 80% 20%, var(--primary-bg) 0%, transparent 60%),
+        radial-gradient(ellipse at 10% 80%, #FEF3C7 0%, transparent 60%),
+        white;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(40px, 5.5vw, 64px);
+      margin: 20px 0 24px;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(120deg, transparent 0%, transparent 50%, #FEF3C7 50%, #FEF3C7 100%);
+      padding: 0 6px;
+    }
+    .hero p.lead {
+      font-size: 19px;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 32px;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+    .trust-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .stars { color: var(--accent); font-size: 16px; letter-spacing: 2px; }
+    .hero-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      transform: rotate(-1.5deg);
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius-lg);
+      padding: 1px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    .student-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--bg-soft);
+    }
+    .student-row:last-child { border-bottom: none; }
+    .avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .student-info { flex: 1; }
+    .student-name { font-weight: 700; font-size: 15px; }
+    .student-detail { font-size: 13px; color: var(--text-muted); }
+    .progress-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+    }
+    .floating-badge {
+      position: absolute;
+      top: -20px; right: -20px;
+      background: var(--accent);
+      color: var(--text);
+      padding: 12px 18px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: var(--shadow);
+      transform: rotate(8deg);
+    }
+    @media (max-width: 860px) {
+      .hero { padding: 60px 0 70px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-card { transform: none; }
+    }
+
+    /* STATS */
+    .stats {
+      background: var(--primary-dark);
+      padding: 50px 0;
+      color: white;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+    @media (max-width: 700px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .stat-num { font-size: 36px; }
+    }
+
+    /* SECTION shared */
+    section.padded { padding: 100px 0; }
+    .section-head {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    .section-head h2 {
+      font-size: clamp(32px, 4vw, 44px);
+      margin: 16px 0 14px;
+    }
+    .section-head p {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* WHY */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .why-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .why-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
+    }
+    .why-icon {
+      width: 56px; height: 56px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .why-icon svg { width: 28px; height: 28px; }
+    .why-card h3 { font-size: 19px; margin-bottom: 10px; }
+    .why-card p { font-size: 15px; color: var(--text-muted); line-height: 1.55; }
+    @media (max-width: 860px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .why-grid { grid-template-columns: 1fr; }
+    }
+
+    /* NIVELES */
+    .niveles { background: var(--bg-soft); }
+    .niveles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .nivel-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      border: 1px solid var(--border);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .nivel-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+    .nivel-tag {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+    .nivel-card h3 { font-size: 17px; margin-bottom: 6px; }
+    .nivel-card p { font-size: 14px; color: var(--text-muted); }
+    .nivel-card.specialty { background: var(--primary-dark); color: white; border: none; }
+    .nivel-card.specialty h3 { color: white; }
+    .nivel-card.specialty p { color: rgba(255,255,255,0.75); }
+    .nivel-card.specialty .nivel-tag { background: var(--accent); color: var(--text); }
+    @media (max-width: 860px) {
+      .niveles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* METODOLOGIA */
+    .metodo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+    .metodo-step {
+      text-align: center;
+      padding: 0 12px;
+    }
+    .metodo-num {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      font-family: 'Plus Jakarta Sans';
+      font-weight: 800;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 12px 28px rgba(13,148,136,0.3);
+    }
+    .metodo-step h3 { font-size: 22px; margin-bottom: 12px; }
+    .metodo-step p { color: var(--text-muted); font-size: 16px; }
+    @media (max-width: 860px) {
+      .metodo-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* MODALIDADES */
+    .modalidades { background: var(--bg-soft); }
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      border: 1px solid var(--border);
+    }
+    .modal-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+    .modal-card h3 { font-size: 22px; margin-bottom: 10px; }
+    .modal-card p { color: var(--text-muted); font-size: 15px; line-height: 1.55; }
+    .modal-card ul {
+      list-style: none;
+      margin-top: 16px;
+    }
+    .modal-card ul li {
+      font-size: 14px;
+      color: var(--text);
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-card ul li::before {
+      content: '✓';
+      color: var(--primary);
+      font-weight: 700;
+    }
+    @media (max-width: 860px) { .modal-grid { grid-template-columns: 1fr; } }
+
+    /* PROFESORES */
+    .prof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .prof-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .prof-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .prof-photo {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, var(--primary-light) 0%, #FEF3C7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      font-family: 'Plus Jakarta Sans';
+    }
+    .prof-info { padding: 24px; }
+    .prof-name { font-size: 19px; font-weight: 800; font-family: 'Plus Jakarta Sans'; }
+    .prof-role { font-size: 14px; color: var(--primary); font-weight: 600; margin-top: 4px; }
+    .prof-bio { font-size: 14px; color: var(--text-muted); margin-top: 12px; line-height: 1.55; }
+    .prof-tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+    .prof-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      color: var(--text-muted);
+    }
+    @media (max-width: 860px) { .prof-grid { grid-template-columns: 1fr; } }
+
+    /* PLANES */
+    .planes { background: var(--primary-dark); color: white; }
+    .planes .section-head h2, .planes .section-head p { color: white; }
+    .planes .section-head p { color: rgba(255,255,255,0.8); }
+    .planes .eyebrow { background: rgba(245,158,11,0.2); color: var(--accent); }
+    .planes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .plan-card {
+      background: white;
+      color: var(--text);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      position: relative;
+    }
+    .plan-card.featured {
+      background: linear-gradient(180deg, white 0%, var(--primary-bg) 100%);
+      transform: scale(1.04);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+    }
+    .plan-badge {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--text);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .plan-name { font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; }
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin: 14px 0 8px;
+    }
+    .plan-price .currency { font-size: 18px; font-weight: 700; color: var(--text-muted); }
+    .plan-price .amount { font-family: 'Plus Jakarta Sans'; font-size: 56px; font-weight: 800; letter-spacing: -0.04em; }
+    .plan-price .period { font-size: 16px; color: var(--text-muted); }
+    .plan-desc { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+    .plan-features {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 15px;
+    }
+    .plan-features li::before {
+      content: '✓';
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .plan-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      background: var(--bg-soft);
+      color: var(--text);
+      transition: background 0.15s;
+    }
+    .plan-cta:hover { background: var(--border); }
+    .plan-card.featured .plan-cta {
+      background: var(--primary);
+      color: white;
+    }
+    .plan-card.featured .plan-cta:hover { background: var(--primary-dark); }
+    @media (max-width: 860px) {
+      .planes-grid { grid-template-columns: 1fr; }
+      .plan-card.featured { transform: none; }
+    }
+
+    /* TESTIMONIOS */
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .test-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      position: relative;
+    }
+    .test-card .stars { font-size: 18px; margin-bottom: 14px; display: block; }
+    .test-card blockquote {
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-author .avatar { width: 40px; height: 40px; font-size: 14px; }
+    .test-author-info .test-name { font-weight: 700; font-size: 15px; }
+    .test-author-info .test-role { font-size: 13px; color: var(--text-muted); }
+    @media (max-width: 860px) { .test-grid { grid-template-columns: 1fr; } }
+
+    /* FAQ */
+    .faq { background: var(--bg-soft); }
+    .faq-list { max-width: 780px; margin: 0 auto; }
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      padding: 22px 26px;
+      font-size: 17px;
+      font-weight: 700;
+      font-family: inherit;
+      background: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: var(--text);
+    }
+    .faq-q::after {
+      content: '+';
+      font-size: 24px;
+      color: var(--primary);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 26px;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .faq-item.open .faq-a {
+      max-height: 200px;
+      padding: 0 26px 22px;
+    }
+
+    /* CTA FINAL */
+    .cta-final {
+      background:
+        radial-gradient(ellipse at 80% 0%, rgba(245,158,11,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at 0% 100%, rgba(13,148,136,0.3) 0%, transparent 60%),
+        var(--primary-dark);
+      color: white;
+      padding: 100px 0;
+    }
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .cta-final h2 {
+      color: white;
+      font-size: clamp(34px, 4.5vw, 50px);
+      margin-bottom: 16px;
+    }
+    .cta-final p {
+      color: rgba(255,255,255,0.85);
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+    .cta-bullets { list-style: none; }
+    .cta-bullets li {
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.9);
+    }
+    .cta-bullets li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .cta-form {
+      background: white;
+      color: var(--text);
+      padding: 36px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    .cta-form h3 { font-size: 22px; margin-bottom: 6px; }
+    .cta-form .form-sub { color: var(--text-muted); font-size: 14px; margin-bottom: 22px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 15px;
+      font-family: inherit;
+      background: var(--bg-soft);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: white;
+    }
+    .form-submit {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px;
+    }
+    .form-foot {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+    @media (max-width: 860px) {
+      .cta-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0F172A;
+      color: rgba(255,255,255,0.7);
+      padding: 60px 0 30px;
+    }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .foot-brand .logo { color: white; margin-bottom: 16px; }
+    .foot-about { font-size: 14px; line-height: 1.6; max-width: 300px; }
+    .foot-col h4 {
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .foot-col ul { list-style: none; }
+    .foot-col li { padding: 6px 0; font-size: 14px; }
+    .foot-col a:hover { color: var(--accent); }
+    .foot-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .foot-credit { color: rgba(255,255,255,0.5); }
+    .foot-credit a { color: var(--accent); font-weight: 600; }
+    @media (max-width: 860px) {
+      .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+    }
+    @media (max-width: 540px) {
+      .foot-grid { grid-template-columns: 1fr; }
+    }
+
+    /* WHATSAPP FLOAT */
+    .wa-float {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 60px; height: 60px;
+      background: var(--whatsapp);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 32px rgba(37,211,102,0.4);
+      z-index: 99;
+      transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+    .wa-float svg { width: 32px; height: 32px; fill: white; }
+
+    /* FADE IN */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-mark">L</div>
+        <span>Lingua</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#niveles">Niveles</a></li>
+        <li><a href="#metodologia">Metodología</a></li>
+        <li><a href="#modalidades">Modalidades</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#contacto" class="btn btn-primary">Clase de prueba</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Academia de inglés · Guatemala</span>
+        <h1>Hablá inglés con <span class="highlight">confianza.</span> En 6 meses.</h1>
+        <p class="lead">Clases personalizadas, profesores certificados y conversación desde el día uno. Online o presencial — vos elegís.</p>
+        <div class="hero-ctas">
+          <a href="#contacto" class="btn btn-primary">Reservá tu clase de prueba gratis →</a>
+          <a href="#planes" class="btn btn-ghost">Ver planes</a>
+        </div>
+        <div class="trust-row">
+          <span class="stars">★★★★★</span>
+          <span><strong style="color:var(--text)">4.9 de 5</strong> · más de 800 estudiantes graduados</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="floating-badge">Cupos abiertos</div>
+        <div class="student-row">
+          <div class="avatar">MG</div>
+          <div class="student-info">
+            <div class="student-name">María G.</div>
+            <div class="student-detail">Nivel B2 · Conversación</div>
+          </div>
+          <span class="progress-pill">+85%</span>
+        </div>
+        <div class="student-row">
+          <div class="avatar">JC</div>
+          <div class="student-info">
+            <div class="student-name">Juan C.</div>
+            <div class="student-detail">Business English · 4 meses</div>
+          </div>
+          <span class="progress-pill">+72%</span>
+        </div>
+        <div class="student-row">
+          <div class="avatar">SP</div>
+          <div class="student-info">
+            <div class="student-name">Sofía P.</div>
+            <div class="student-detail">A2 · Inicial</div>
+          </div>
+          <span class="progress-pill">+38%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-num">800+</div>
+          <div class="stat-label">Estudiantes graduados</div>
+        </div>
+        <div>
+          <div class="stat-num">12</div>
+          <div class="stat-label">Profesores certificados</div>
+        </div>
+        <div>
+          <div class="stat-num">6</div>
+          <div class="stat-label">Niveles (A1 a C2)</div>
+        </div>
+        <div>
+          <div class="stat-num">4.9★</div>
+          <div class="stat-label">Satisfacción promedio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="padded" id="por-que">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Por qué Lingua</span>
+        <h2>Aprendé inglés como debería enseñarse.</h2>
+        <p>Pequeños grupos, profesores que te conocen por tu nombre y un plan de estudio que se adapta a tu objetivo — no al revés.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>Grupos pequeños</h3>
+          <p>Máximo 6 estudiantes por clase. Cada uno habla, cada uno avanza, nadie se esconde al fondo.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Profesores certificados</h3>
+          <p>Todos con TEFL, TESOL o equivalente. Hablantes nativos y bilingües con experiencia real enseñando.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          </div>
+          <h3>Plan personalizado</h3>
+          <p>Diagnóstico inicial gratis. A partir de ahí construimos tu ruta — viaje, trabajo, examen o conversación.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </div>
+          <h3>Conversación desde día 1</h3>
+          <p>Olvidate de aprender gramática 6 meses antes de hablar. Acá practicás conversación desde la primera clase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NIVELES -->
+  <section class="padded niveles" id="niveles">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Niveles</span>
+        <h2>Empezá donde estés. Llegá adonde quieras.</h2>
+        <p>Cubrimos todo el marco MCER — desde principiante absoluto hasta nivel avanzado, con tracks específicos para conversación y negocios.</p>
+      </div>
+      <div class="niveles-grid">
+        <div class="nivel-card reveal">
+          <span class="nivel-tag">A1</span>
+          <h3>Principiante</h3>
+          <p>Vocabulario básico, frases simples, presentarte y entender lo esencial.</p>
+        </div>
+        <div class="nivel-card reveal">
+          <span class="nivel-tag">A2</span>
+          <h3>Elemental</h3>
+          <p>Conversaciones cotidianas, hablar de tu rutina, viajar sin frustración.</p>
+        </div>
+        <div class="nivel-card reveal">
+          <span class="nivel-tag">B1</span>
+          <h3>Intermedio</h3>
+          <p>Manejarte en situaciones laborales, ver series sin subtítulos.</p>
+        </div>
+        <div class="nivel-card reveal">
+          <span class="nivel-tag">B2</span>
+          <h3>Intermedio Alto</h3>
+          <p>Conversar con fluidez, opinar sobre temas complejos, leer artículos.</p>
+        </div>
+        <div class="nivel-card reveal">
+          <span class="nivel-tag">C1</span>
+          <h3>Avanzado</h3>
+          <p>Comunicación profesional sin esfuerzo, presentaciones, negociación.</p>
+        </div>
+        <div class="nivel-card reveal">
+          <span class="nivel-tag">C2</span>
+          <h3>Maestría</h3>
+          <p>Dominio cercano al nativo. Matices culturales, humor, debate.</p>
+        </div>
+        <div class="nivel-card specialty reveal">
+          <span class="nivel-tag">Specialty</span>
+          <h3>Conversational</h3>
+          <p>Fluidez práctica para socializar, viajar, trabajar — sin aburrirte con gramática.</p>
+        </div>
+        <div class="nivel-card specialty reveal">
+          <span class="nivel-tag">Specialty</span>
+          <h3>Business English</h3>
+          <p>Reuniones, emails, presentaciones, negociación. Para profesionales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METODOLOGIA -->
+  <section class="padded" id="metodologia">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Metodología</span>
+        <h2>Tres pasos para empezar a hablar.</h2>
+        <p>Sin sorpresas. Sabés exactamente qué esperar desde la primera llamada.</p>
+      </div>
+      <div class="metodo-grid">
+        <div class="metodo-step reveal">
+          <div class="metodo-num">1</div>
+          <h3>Diagnóstico inicial</h3>
+          <p>Conversamos 20 minutos sin compromiso. Identificamos tu nivel real y tu objetivo concreto.</p>
+        </div>
+        <div class="metodo-step reveal">
+          <div class="metodo-num">2</div>
+          <h3>Plan a tu medida</h3>
+          <p>Diseñamos tu ruta de estudio: cuántas clases por semana, qué nivel, qué materiales y cuánto te va a tomar.</p>
+        </div>
+        <div class="metodo-step reveal">
+          <div class="metodo-num">3</div>
+          <h3>Práctica real</h3>
+          <p>Empezás clases con tu profesor asignado. Cada mes evaluamos avance y ajustamos el plan si hace falta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODALIDADES -->
+  <section class="padded modalidades" id="modalidades">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Modalidades</span>
+        <h2>Como mejor te funcione.</h2>
+        <p>Elegí cómo querés aprender. Podés cambiar de modalidad en cualquier momento.</p>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-card reveal">
+          <div class="modal-icon">🏫</div>
+          <h3>Presencial</h3>
+          <p>En nuestro campus en zona 10, Guatemala. Aulas pensadas para conversación, no para tomar apuntes.</p>
+          <ul>
+            <li>Grupos de 4 a 6 estudiantes</li>
+            <li>Acceso a biblioteca y recursos</li>
+            <li>Eventos y conversation clubs</li>
+          </ul>
+        </div>
+        <div class="modal-card reveal">
+          <div class="modal-icon">💻</div>
+          <h3>Online</h3>
+          <p>Clases en vivo por videollamada. Misma metodología, mismos profesores, desde cualquier parte.</p>
+          <ul>
+            <li>Plataforma propia, sin descargas</li>
+            <li>Grabaciones para repasar</li>
+            <li>Material digital incluido</li>
+          </ul>
+        </div>
+        <div class="modal-card reveal">
+          <div class="modal-icon">🏢</div>
+          <h3>Empresarial</h3>
+          <p>Programas para equipos. Llevamos las clases a tu oficina o las hacemos online — vos decidís.</p>
+          <ul>
+            <li>Diagnóstico de cada colaborador</li>
+            <li>Reportes de avance trimestrales</li>
+            <li>Factura a tu empresa</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFESORES -->
+  <section class="padded" id="profesores">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Equipo</span>
+        <h2>Profesores que se preocupan.</h2>
+        <p>Conocé al equipo que te va a acompañar — todos certificados, todos con experiencia real enseñando a estudiantes como vos.</p>
+      </div>
+      <div class="prof-grid">
+        <div class="prof-card reveal">
+          <div class="prof-photo">SR</div>
+          <div class="prof-info">
+            <div class="prof-name">Sarah Robinson</div>
+            <div class="prof-role">Lead Teacher · Native</div>
+            <p class="prof-bio">Originaria de Toronto. 8 años enseñando en Latinoamérica. Especialista en conversación y pronunciación.</p>
+            <div class="prof-tags">
+              <span class="prof-tag">TESOL</span>
+              <span class="prof-tag">CELTA</span>
+              <span class="prof-tag">Business</span>
+            </div>
+          </div>
+        </div>
+        <div class="prof-card reveal">
+          <div class="prof-photo">DM</div>
+          <div class="prof-info">
+            <div class="prof-name">David Morales</div>
+            <div class="prof-role">Senior Teacher · Bilingual</div>
+            <p class="prof-bio">Guatemalteco, certificado TEFL en Londres. Preparación para TOEFL e IELTS. Paciente y muy estructurado.</p>
+            <div class="prof-tags">
+              <span class="prof-tag">TEFL</span>
+              <span class="prof-tag">TOEFL prep</span>
+              <span class="prof-tag">IELTS prep</span>
+            </div>
+          </div>
+        </div>
+        <div class="prof-card reveal">
+          <div class="prof-photo">EJ</div>
+          <div class="prof-info">
+            <div class="prof-name">Emma Johnson</div>
+            <div class="prof-role">Teacher · Native</div>
+            <p class="prof-bio">De Manchester, UK. Especializada en niveles iniciales y métodos lúdicos. Te hace olvidar que estás estudiando.</p>
+            <div class="prof-tags">
+              <span class="prof-tag">CELTA</span>
+              <span class="prof-tag">A1-B1</span>
+              <span class="prof-tag">Kids & Teens</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANES -->
+  <section class="padded planes" id="planes">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Planes</span>
+        <h2>Inversión clara. Sin letra chica.</h2>
+        <p>Pagás mes a mes. Sin contratos largos. Si no te funciona, cancelás.</p>
+      </div>
+      <div class="planes-grid">
+        <div class="plan-card reveal">
+          <div class="plan-name">Trial</div>
+          <div class="plan-price">
+            <span class="amount">Gratis</span>
+          </div>
+          <p class="plan-desc">Tu primera clase de 30 minutos sin compromiso.</p>
+          <ul class="plan-features">
+            <li>Diagnóstico de nivel</li>
+            <li>1 clase de prueba con profesor</li>
+            <li>Plan de estudio recomendado</li>
+            <li>Sin pedirte tarjeta</li>
+          </ul>
+          <a href="#contacto" class="plan-cta">Reservar prueba</a>
+        </div>
+        <div class="plan-card featured reveal">
+          <span class="plan-badge">Más elegido</span>
+          <div class="plan-name">Estándar</div>
+          <div class="plan-price">
+            <span class="currency">Q</span>
+            <span class="amount">450</span>
+            <span class="period">/mes</span>
+          </div>
+          <p class="plan-desc">Para quien quiere avanzar consistente sin abrumarse.</p>
+          <ul class="plan-features">
+            <li>2 clases de 1h por semana</li>
+            <li>Grupo máximo 6 personas</li>
+            <li>Material digital incluido</li>
+            <li>Acceso a conversation clubs</li>
+            <li>Evaluación mensual de avance</li>
+          </ul>
+          <a href="#contacto" class="plan-cta">Empezar plan Estándar</a>
+        </div>
+        <div class="plan-card reveal">
+          <div class="plan-name">Intensivo</div>
+          <div class="plan-price">
+            <span class="currency">Q</span>
+            <span class="amount">800</span>
+            <span class="period">/mes</span>
+          </div>
+          <p class="plan-desc">Resultados acelerados. Para quien tiene un objetivo concreto y plazo definido.</p>
+          <ul class="plan-features">
+            <li>4 clases de 1.5h por semana</li>
+            <li>Grupo máximo 4 personas</li>
+            <li>Material digital + libro físico</li>
+            <li>1 sesión 1-a-1 al mes</li>
+            <li>Acceso prioritario a conversation clubs</li>
+          </ul>
+          <a href="#contacto" class="plan-cta">Empezar plan Intensivo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="padded">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Lo que dicen</span>
+        <h2>Estudiantes reales. Resultados reales.</h2>
+      </div>
+      <div class="test-grid">
+        <div class="test-card reveal">
+          <span class="stars">★★★★★</span>
+          <blockquote>"Llevaba años intentando aprender inglés solo. En Lingua avancé más en 4 meses que en 4 años. Lo que cambia todo es que te hacen hablar desde la primera clase."</blockquote>
+          <div class="test-author">
+            <div class="avatar">CR</div>
+            <div class="test-author-info">
+              <div class="test-name">Carlos R.</div>
+              <div class="test-role">Ingeniero · Plan Intensivo</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card reveal">
+          <span class="stars">★★★★★</span>
+          <blockquote>"Necesitaba inglés para una entrevista de trabajo en EE.UU. en 3 meses. Sarah me preparó específicamente para eso. Pasé la entrevista y ya estoy trabajando."</blockquote>
+          <div class="test-author">
+            <div class="avatar">AM</div>
+            <div class="test-author-info">
+              <div class="test-name">Ana M.</div>
+              <div class="test-role">Diseñadora · Business English</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card reveal">
+          <span class="stars">★★★★★</span>
+          <blockquote>"Empecé desde cero a los 45 años pensando que era tarde. Acá nadie te juzga, los grupos son chicos y avanzás a tu ritmo. Ya entiendo películas sin subtítulos."</blockquote>
+          <div class="test-author">
+            <div class="avatar">RP</div>
+            <div class="test-author-info">
+              <div class="test-name">Rosa P.</div>
+              <div class="test-role">Contadora · Plan Estándar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="padded faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2>Preguntas frecuentes</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q">¿Cómo sé en qué nivel empezar?<span></span></button>
+          <div class="faq-a">El diagnóstico inicial es gratuito y dura unos 20 minutos. Conversamos contigo y vemos tu nivel real (no el que crees tener). A partir de ahí te ubicamos en el grupo correcto.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">¿Cuánto tiempo me va a tomar aprender?<span></span></button>
+          <div class="faq-a">Depende del nivel objetivo y tu dedicación. En promedio, llegar de cero a B1 (intermedio) toma 8 a 12 meses con plan Estándar. Con plan Intensivo lo logramos en 5 a 7 meses.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">¿Hay contrato o puedo cancelar?<span></span></button>
+          <div class="faq-a">No hay contrato. Pagás mes a mes y podés cancelar cuando quieras. Si cancelás, terminás el mes que ya pagaste y listo.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">¿Las clases online son iguales que las presenciales?<span></span></button>
+          <div class="faq-a">Misma metodología, mismos profesores, misma cantidad de práctica. La diferencia es solo el formato — vos elegís el que más te acomode.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">¿Puedo recuperar clases si falto?<span></span></button>
+          <div class="faq-a">Sí. Tenés derecho a reagendar hasta 2 clases por mes con 24h de aviso. Las clases se graban (modalidad online) para que las puedas repasar.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">¿Aceptan pago con tarjeta?<span></span></button>
+          <div class="faq-a">Sí, podés pagar con tarjeta de crédito, débito o transferencia bancaria. El cobro mensual se puede automatizar para que no tengas que preocuparte.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final" id="contacto">
+    <div class="container">
+      <div class="cta-grid">
+        <div class="reveal">
+          <h2>¿Listo para empezar a hablar inglés?</h2>
+          <p>Reservá tu clase de prueba gratuita. Sin compromiso, sin tarjeta, sin letra chica.</p>
+          <ul class="cta-bullets">
+            <li>Diagnóstico de nivel personalizado</li>
+            <li>Conocés a tu posible profesor</li>
+            <li>Te llevás un plan recomendado</li>
+            <li>Si te gusta, empezás. Si no, no.</li>
+          </ul>
+          <div style="margin-top: 28px;">
+            <a href="https://wa.me/50250000000?text=Hola%20Lingua,%20me%20interesa%20una%20clase%20de%20prueba" target="_blank" rel="noopener" class="btn btn-wa">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+              Hablar por WhatsApp
+            </a>
+          </div>
+        </div>
+        <form class="cta-form reveal" onsubmit="event.preventDefault(); alert('¡Gracias! Te vamos a contactar en menos de 24 horas.');">
+          <h3>Reservá tu clase de prueba</h3>
+          <p class="form-sub">Te contactamos en menos de 24 horas.</p>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="tucorreo@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label for="telefono">WhatsApp</label>
+            <input type="tel" id="telefono" name="telefono" required placeholder="+502 5555 5555">
+          </div>
+          <div class="form-group">
+            <label for="nivel">Tu nivel actual (aprox.)</label>
+            <select id="nivel" name="nivel">
+              <option value="">Seleccioná...</option>
+              <option>No sé / desde cero</option>
+              <option>Básico (entiendo poco)</option>
+              <option>Intermedio (me defiendo)</option>
+              <option>Avanzado (quiero perfeccionar)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">Reservar mi clase de prueba →</button>
+          <p class="form-foot">No te vamos a llenar de spam. Promesa.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#" class="logo">
+            <div class="logo-mark">L</div>
+            <span>Lingua</span>
+          </a>
+          <p class="foot-about">Academia de inglés en Guatemala. Clases personalizadas, profesores certificados, conversación desde el día uno.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Academia</h4>
+          <ul>
+            <li><a href="#niveles">Niveles</a></li>
+            <li><a href="#metodologia">Metodología</a></li>
+            <li><a href="#modalidades">Modalidades</a></li>
+            <li><a href="#profesores">Profesores</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li>WhatsApp: +502 5000-0000</li>
+            <li>hola@linguaacademy.gt</li>
+            <li>Zona 10, Guatemala</li>
+            <li>Lun a Vie · 8am - 8pm</li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Términos</a></li>
+            <li><a href="#">Privacidad</a></li>
+            <li><a href="#">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Lingua Academy. Todos los derechos reservados.</span>
+        <span class="foot-credit">Sitio diseñado y desarrollado por <a href="https://digisima.com" target="_blank" rel="noopener">Digisima</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/50250000000?text=Hola%20Lingua,%20me%20interesa%20información" target="_blank" rel="noopener" class="wa-float" aria-label="Chat por WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  </a>
+
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
